@@ -15,7 +15,7 @@ The Arduino sends via bluetooth the pit and meat temperature probe temperatures.
 
 Upon arrival of the packets it decodes and verifies the contents, then forwards it to MQTT. 
 
-Once in MQTT under the topic smoker/pit_temp or smoker/meat_temp it is then picked up by openHAB
+Once in MQTT under the topic smoker/pit_temp or smoker/meat_temp it is then picked up by openHAB and displayed in the UI
 
 
 
