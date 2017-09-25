@@ -5,6 +5,7 @@ Apps I have made to help automate my house.
 I am using OpenHAB2 to help automate my house.
 
 # Current Status
+## Smoker Module
 The smoker module consists of three parts:
  - The Arduino code
  - The python interface (bluetooth -> MQTT)
@@ -16,5 +17,8 @@ Upon arrival of the packets it decodes and verifies the contents, then forwards 
 
 Once in MQTT under the topic smoker/pit_temp or smoker/meat_temp it is then picked up by openHAB
 
+
+
+# Contact
 Feel free to contact me with any questions regarding my setup and stay tuned for more!
 Ian McElhenny - mcelhenny_ian@yahoo.com
