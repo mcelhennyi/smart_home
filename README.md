@@ -1,4 +1,4 @@
-# smart_home
+# Smart Home Repository
 Apps I have made to help automate my house.
 
 # OpenHAB2
