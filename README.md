@@ -21,4 +21,5 @@ Once in MQTT under the topic smoker/pit_temp or smoker/meat_temp it is then pick
 
 # Contact
 Feel free to contact me with any questions regarding my setup and stay tuned for more!
+
 Ian McElhenny - mcelhenny_ian@yahoo.com
