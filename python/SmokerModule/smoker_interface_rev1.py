@@ -46,11 +46,25 @@ class SmokerInterface:
         self.mqtt_client.connect(MQTT_BROKER_ADDR, port=1883, keepalive=60, bind_address="")
 
         # Blue tooth socket stuff
-        self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-        port = 0x01
-        self.sock.connect((BLUETOOTH_ADDR, port))
-        print("trying to connect to %s on PSM 0x%X" % (BLUETOOTH_ADDR, port))
+        self.port = 0x01
+        self.sock = None
+        self.connect()
+
+    def connect(self, ):
+        try_again = True
+        print("trying to connect to %s on PSM 0x%X" % (BLUETOOTH_ADDR, self.port))
+        while try_again:
+            try:
+                self.sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+                self.sock.connect((BLUETOOTH_ADDR, self.port))
+                try_again = False
+            except bluetooth.btcommon.BluetoothError as e:
+                print("Unable to connect, trying again... errror: " + str(e))
+                try_again = True
+                time.sleep(1)
+                sys.stdout.flush()
         print("connected. listening...")
+        sys.stdout.flush()
 
     def main(self):
         while True:
@@ -64,10 +78,13 @@ class SmokerInterface:
                     self.data_ready = False
                     self.publish_mqtt(self.data_name, self.data_val)
 
-            except KeyboardInterrupt:
-                break
+                sys.stdout.flush()
+            except bluetooth.btcommon.BluetoothError as e:
+                print("Disconnected, trying to reconnect...error: " + str(e))
+                sys.stdout.flush()
+                self.sock.close()
+                self.connect()
 
-        self.sock.close()
 
     def publish_mqtt(self, topic, value):
         self.mqtt_client.publish(MQTT_DOMAIN_TOPIC + topic, payload=value)
@@ -183,4 +200,9 @@ class SmokerInterface:
 
 if __name__ == "__main__":
     si = SmokerInterface()
-    si.main()
+    try:
+        si.main()
+    except KeyboardInterrupt:
+        print("\n\n...Taking down SmokerModule...")
+        si.sock.close()
+        print("Done.")
