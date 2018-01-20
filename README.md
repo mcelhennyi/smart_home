@@ -31,4 +31,4 @@ This allows the script to run in the background.
 # Contact
 Feel free to contact me with any questions regarding my setup and stay tuned for more!
 
-Ian McElhenny - mcelhenny_ian@yahoo.com
+Ian McElhenny - imcelhenny1@gmail.com
